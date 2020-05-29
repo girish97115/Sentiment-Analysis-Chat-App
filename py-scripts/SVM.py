@@ -31,12 +31,12 @@ for word, tag in pos_tag(string):
 transformer = TfidfTransformer()
 corpus = [" ".join(i for i in Final_words)]
 
-vocabulary = pickle.load(open("py-scripts/models/feature.pkl", 'rb'))
+vocabulary = pickle.load(open("py-scripts/model-dependencies/support-vector-machine/feature.pkl", 'rb'))
 pipe = Pipeline([('count', CountVectorizer(vocabulary=vocabulary, ngram_range=(1,3))),('tfid', TfidfTransformer())]).fit(corpus)
 pipe['count'].transform(corpus).toarray()
 final = pipe.transform(corpus)
 
-with open("py-scripts/models/Pickle_SVC_Model.pkl", 'rb') as file:
+with open("py-scripts/model-dependencies/support-vector-machine/Pickle_SVC_Model.pkl", 'rb') as file:
     Pickled_SVC_Model = pickle.load(file)
 
 prediction = Pickled_SVC_Model.predict(final)[0]
